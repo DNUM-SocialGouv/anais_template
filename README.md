@@ -3,42 +3,52 @@
 ## Structure 
 # Structure du projet `elt_project`
 
-- **config/**
-  - `config.json` – Configuration générale (chemins, SFTP, PostgreSQL, etc.)
-  - `sftp_keys/` – Clés SSH pour le SFTP
-  - `secrets.env` – Variables sensibles (ex: mot de passe DB)
+project-root/
+├── ingestion/
+│   ├── pipelines/
+│   │   ├── __init__.py
+│   │   └── dlt_pipeline.py        # Main DLT ingestion script(s)
+│   ├── config/
+│   │   ├── base_config.yaml       # Common config parameters
+│   │   ├── local.yaml             # Local (DuckDB/Parquet) settings
+│   │   ├── onprem.yaml            # On-prem deployment settings
+│   │   └── saagie.yaml            # Saagie deployment settings
+│   ├── utils/
+│   │   └── logger.py              # Shared utilities (e.g., logging)
+│   └── tests/
+│       └── test_dlt_pipeline.py   # Unit tests for ingestion
+│
+├── transformations/
+│   ├── dbt_project/               # Standard dbt project directory
+│   │   ├── models/
+│   │   │   └── example_model.sql  # Example SQL transformation model
+│   │   ├── dbt_project.yml        # dbt project configuration
+│   │   └── profiles.yml           # dbt profiles (can be templated)
+│   └── tests/
+│       └── test_dbt_models.sql    # Tests to validate transformations
+│
+├── local_env/                     # Local environment artifacts
+│   ├── duckdb/                    # DuckDB-specific files/configs
+│   └── parquet/                   # Sample parquet files for testing
+│
+├── deployment/                    # Deployment scripts & configs
+│   ├── onprem/
+│   │   ├── deploy.sh              # On-prem deployment script
+│   │   └── config_onprem.yaml     # On-prem specific settings
+│   ├── saagie/
+│   │   ├── deploy.sh              # Saagie deployment script
+│   │   └── config_saagie.yaml     # Saagie-specific settings
+│   └── Dockerfile                 # (Optional) Containerization if needed
+│
+├── .github/
+│   └── workflows/                 # CI/CD pipeline definitions for GitHub Actions
+│       ├── ci.yml               # Continuous integration jobs
+│       └── cd.yml               # Continuous deployment jobs
+│
+├── pyproject.toml                 # Poetry dependency and project configuration
+├── poetry.lock                    # Locked dependencies
+└── README.md                      # Project overview and documentation
 
-- **data/**
-  - `input/` – Fichiers source bruts (temporaire avant ingestion)
-  - `decrypted/` – Fichiers après déchiffrement PGP
-  - `output/` – Export des données finales avant envoi SFTP
-
-- **dbt/**
-  - **models/**
-    - `staging/` – Transformation initiale des données (staging tables)
-    - `marts/` – Modèles finaux (data marts)
-    - `sources.yml` – Définition des sources
-    - `dbt_project.yml` – Config principale DBT
-
-- **modules/**
-  - `ingestion.py` – Module d'ingestion avec DLT (SFTP -> PostgreSQL)
-  - `decryption.py` – Module de déchiffrement PGP
-  - `export.py` – Module d'export (PostgreSQL -> SFTP)
-
-- **utils/**
-  - `sftp_utils.py` – Fonctions de connexion SFTP
-  - `db_utils.py` – Connexion et requêtes PostgreSQL
-  - `logging_config.py` – Configuration des logs
-
-- **logs/** – Logs de l'application
-
-- **tests/** – Tests unitaires et d'intégration
-
-- `main.py` – Script principal orchestrant les étapes ELT
-- `requirements.txt` – Dépendances du projet
-- `README.md` – Documentation du projet
-- `.env` – Variables d'environnement
-- `.gitignore` – Fichiers à ignorer (clés SSH, fichiers temporaires, etc.)
 
 
 ## Stack
