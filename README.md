@@ -3,6 +3,7 @@
 ## Structure 
 # Structure du projet `elt_project`
 
+```plaintext
 project-root/
 ├── ingestion/
 │   ├── pipelines/
@@ -37,17 +38,8 @@ project-root/
 │   │   └── config_onprem.yaml     # On-prem specific settings
 │   ├── saagie/
 │   │   ├── deploy.sh              # Saagie deployment script
-│   │   └── config_saagie.yaml     # Saagie-specific settings
-│   └── Dockerfile                 # (Optional) Containerization if needed
-│
-├── .github/
-│   └── workflows/                 # CI/CD pipeline definitions for GitHub Actions
-│       ├── ci.yml               # Continuous integration jobs
-│       └── cd.yml               # Continuous deployment jobs
-│
-├── pyproject.toml                 # Poetry dependency and project configuration
-├── poetry.lock                    # Locked dependencies
-└── README.md                      # Project overview and documentation
+│   │  
+
 
 
 
